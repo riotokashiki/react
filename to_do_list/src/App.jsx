@@ -13,6 +13,16 @@ console.log("todos=")
 console.log(todos)
 }
 
+function removeCurrentIndex(_,i){
+return i!==todos[i]
+
+}
+
+function removeTask(i){
+setTodos(todos.filter(removeCurrentIndex(_,i)))
+
+}
+
 
   return (
   <div>
@@ -20,7 +30,7 @@ console.log(todos)
   <button onClick={handleAdd}>Add</button>
   <ul>
   {todos.map((todo,i)=>( // the i is how index numbers should be called
-  <li key={i}>{todo}</li>
+  <li key={i}>{todo}<button onClick={()=>removeTask(i)}>x</button></li>
   ))}
   </ul>
     
