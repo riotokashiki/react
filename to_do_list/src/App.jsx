@@ -4,11 +4,7 @@ export default function App() {
 
   const[todos,setTodos]=useState([])//an empty array
   const[input,setInput]=useState('')//empty text area
-  let striken={
-    textDecoration:completed===true?"line-through":"none"
 
-
-  }
 
 function handleAdd(){
 
@@ -27,20 +23,39 @@ function removeCurrentIndex(index){
 return index!==i
 
 }
-
-
-
 }
 
+ function completeTask(i){
+
+  setTodos(todos.map((todo,index)=>{
+    if(index===i){
+      return{...todo, completed:true}
+
+    }
+    return todo
+  })
+
+
+  )
+
+ }
 
   return (
   <div>
   <input value={input} onChange={(e)=>setInput(e.target.value)}/*setting an eventListener*/  />
   <button onClick={handleAdd}>Add</button>
   <ul>
-  {todos.map((todo,i)=>( // the i is how index numbers should be called
-  <li key={i} style={striken} onClick={()=>{todos[i].completed=true}}>{todos[i].text}<button onClick={()=>removeTask(i)}>x</button></li>
-  ))}
+  {todos.map((todo,i)=>{
+      const striken={
+    textDecoration:todos[i].completed?"line-through":"none"
+  }
+
+  
+  
+return( // the i is how index numbers should be called
+  <li key={i} style={striken} onClick={()=>completeTask(i)}>{todos[i].text}<button onClick={()=>removeTask(i)}>x</button></li>
+  )
+})}
   </ul>
     
     
