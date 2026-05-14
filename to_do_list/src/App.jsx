@@ -4,22 +4,31 @@ export default function App() {
 
   const[todos,setTodos]=useState([])//an empty array
   const[input,setInput]=useState('')//empty text area
+  let striken={
+    textDecoration:completed===true?"line-through":"none"
+
+
+  }
 
 function handleAdd(){
 
-setTodos([...todos,input])//Updating setTodos (appending "input" to the todos array)
+setTodos([...todos,{text:input,completed:false}])//Updating setTodos (appending "input" to the todos array)
 setInput('')//Initializing the "input" (since you pressed the Add button)
 console.log("todos=")
 console.log(todos)
 }
 
-function removeCurrentIndex(_,i){
-return i!==todos[i]
+
+function removeTask(i){
+setTodos(todos.filter((_,index)=>removeCurrentIndex(index)))
+
+function removeCurrentIndex(index){
+  console.log(`index!==${i}=${index!==todos[i]}`)
+return index!==i
 
 }
 
-function removeTask(i){
-setTodos(todos.filter(removeCurrentIndex(_,i)))
+
 
 }
 
@@ -30,7 +39,7 @@ setTodos(todos.filter(removeCurrentIndex(_,i)))
   <button onClick={handleAdd}>Add</button>
   <ul>
   {todos.map((todo,i)=>( // the i is how index numbers should be called
-  <li key={i}>{todo}<button onClick={()=>removeTask(i)}>x</button></li>
+  <li key={i} style={striken} onClick={()=>{todos[i].completed=true}}>{todos[i].text}<button onClick={()=>removeTask(i)}>x</button></li>
   ))}
   </ul>
     
