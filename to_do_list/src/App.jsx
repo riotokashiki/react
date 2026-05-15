@@ -4,7 +4,7 @@ export default function App() {
 
   const[todos,setTodos]=useState([])//an empty array
   const[input,setInput]=useState('')//empty text area
-
+  const[editingIndex,setEditingIndex]=useState(null)
 
 function handleAdd(){
 
@@ -38,7 +38,15 @@ return index!==i
 
   )
 
- }
+  }
+
+    function editTask(i){
+      setEditingIndex(i)//編集インデックスをiへ更新
+    }
+
+
+
+
 
   return (
   <div>
@@ -53,7 +61,7 @@ return index!==i
   
   
 return( // the i is how index numbers should be called
-  <li key={i} style={striken} onClick={()=>completeTask(i)}>{todos[i].text}<button onClick={()=>removeTask(i)}>x</button></li>
+  <li key={i} style={striken} onDoubleClick={()=>editTask(i)} onClick={()=>completeTask(i)}>{editingIndex===i?<input value={todo.text}></input>:todo.text}<button onClick={()=>removeTask(i)}>x</button></li>
   )
 })}
   </ul>
