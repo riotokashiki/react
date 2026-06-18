@@ -8,7 +8,7 @@ export default function App() {
 
 function handleAdd(){
 
-setTodos([...todos,{text:input,completed:false}])//Updating setTodos (appending "input" to the todos array)
+setTodos([...todos,{text:input,completed:false}])//Updating setTodos Array (appending "input" to the todos array)
 setInput('')//Initializing the "input" (since you pressed the Add button)
 console.log("todos=")
 console.log(todos)
