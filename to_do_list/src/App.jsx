@@ -37,7 +37,7 @@ return index!==i
  function completeTask(i){
   
 if(todos[i].completed){
-  console.log("completeTask() executed! and strikethrough applied!");
+  console.log("completeTask() executed! and strikethrough removed!");
 setTodos(todos.map((todo,index)=>{
 if(index===i){
   return{...todo,completed:false}
@@ -46,7 +46,7 @@ return todo
 
 }))
 }else{
-  console.log("completeTask() executed! and strikethrough removed!");
+  console.log("completeTask() executed! and strikethrough applied!");
   setTodos(todos.map((todo,index)=>{
     if(index===i){
       return{...todo, completed:true}
