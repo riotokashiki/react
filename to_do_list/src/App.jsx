@@ -1,4 +1,4 @@
-import{useState} from 'react'
+import{useState,useEffect} from 'react'
 import './App.css';
 
 export default function App() {
@@ -7,16 +7,23 @@ export default function App() {
   const[input,setInput]=useState('')//empty text area
   const[editingIndex,setEditingIndex]=useState(null)
 
+  useEffect(()=>{    
+            localStorage.setItem("saved_uncompleted_list",JSON.stringify(todos));
+            console.log("(at App() )localStorage Updated!");
+            console.log(JSON.parse(localStorage.getItem("saved_uncompleted_list")));                
+  },[todos])
+
 function handleAdd(){
 if(!input){
 alert("タスクを入力してください！");
 return
 
 }
-setTodos([{text:input,completed:false}, ...todos])//Updating setTodos Array (appending "input" to the todos array)
+setTodos([{text:input,completed:false}, ...todos])//Updating setTodos Array (prepending "input" to the todos array)
 setInput('')//Initializing the "input" (since you pressed the Add button)
-console.log("todos=")
+console.log("(at handleAdd) todos=")
 console.log(todos)
+
 }
 
 
