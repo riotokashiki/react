@@ -1,29 +1,41 @@
+//React Hookをインポート↓↓
 import{useState,useEffect} from 'react'
+//cssシートをインポート↓↓
 import './App.css';
 
+//大文字で始まってるのでリアクトコンポーネント↓↓
 export default function App() {
 
   const[todos,setTodos]=useState([])//an empty array
   const[input,setInput]=useState('')//empty text area
   const[editingIndex,setEditingIndex]=useState(null)
 
+  //todosに変化が生じた時だけ以下を実行↓↓
   useEffect(()=>{    
             localStorage.setItem("saved_uncompleted_list",JSON.stringify(todos));
             console.log("(at App() )localStorage Updated!");
             console.log(JSON.parse(localStorage.getItem("saved_uncompleted_list")));                
   },[todos])
 
+  useEffect(()=>{
+    window.addEventListener("keydown",(e)=>{
+if(e.key=="Enter" ){
+        handleAdd();
+}
+})
+    },[])
+
+  //Regular Function↓↓
 function handleAdd(){
 if(!input){
 alert("タスクを入力してください！");
 return
-
 }
+//状態変数を更新↓↓
 setTodos([{text:input,completed:false}, ...todos])//Updating setTodos Array (prepending "input" to the todos array)
 setInput('')//Initializing the "input" (since you pressed the Add button)
 console.log("(at handleAdd) todos=")
 console.log(todos)
-
 }
 
 
@@ -80,7 +92,7 @@ return todo
         
         <div className='container'>
                   <div className="input_container">
-                          <input value={input} onChange={(e)=>setInput(e.target.value)}/*setting an eventListener*/  />
+                          <input value={input} className="inputField"onChange={(e)=>{setInput(e.target.value) ;console.log(input)}}/*setting an eventListener*/  />
                           <button onClick={handleAdd} className='add_button'>Add</button>
                 </div>
                 <ul>
