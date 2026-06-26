@@ -10,6 +10,16 @@ export default function App() {
   const[input,setInput]=useState('')//empty text area
   const[editingIndex,setEditingIndex]=useState(null)
 
+
+useEffect(()=>{
+const restored_uncompleted_list=JSON.parse(localStorage.getItem("saved_uncompleted_list"))
+console.log("restored_uncompleted_list is...");
+console.log(restored_uncompleted_list);
+if(restored_uncompleted_list){
+  setTodos(restored_uncompleted_list);
+}
+},[])
+
   //todosに変化が生じた時だけ以下を実行↓↓
   useEffect(()=>{    
             localStorage.setItem("saved_uncompleted_list",JSON.stringify(todos));
@@ -17,13 +27,9 @@ export default function App() {
             console.log(JSON.parse(localStorage.getItem("saved_uncompleted_list")));                
   },[todos])
 
-  useEffect(()=>{
-    window.addEventListener("keydown",(e)=>{
-if(e.key=="Enter" ){
-        handleAdd();
-}
-})
-    },[])
+
+
+
 
   //Regular Function↓↓
 function handleAdd(){
@@ -92,7 +98,7 @@ return todo
         
         <div className='container'>
                   <div className="input_container">
-                          <input value={input} className="inputField"onChange={(e)=>{setInput(e.target.value) ;console.log(input)}}/*setting an eventListener*/  />
+                          <input value={input} className="inputField" onKeyDown={(e)=>{if(e.key==="Enter") handleAdd()} } onChange={(e)=>{setInput(e.target.value)}}/*setting an eventListener*/  />
                           <button onClick={handleAdd} className='add_button'>Add</button>
                 </div>
                 <ul>
