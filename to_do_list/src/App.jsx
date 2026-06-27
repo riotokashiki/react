@@ -6,21 +6,27 @@ import './App.css';
 //大文字で始まってるのでリアクトコンポーネント↓↓
 export default function App() {
 
-  const[todos,setTodos]=useState([])//an empty array
+  const[todos,setTodos]=useState(()=>{
+    const restored_uncompleted_list=JSON.parse(localStorage.getItem("saved_uncompleted_list"))
+    return restored_uncompleted_list?restored_uncompleted_list:[]
+  })//an empty array
   const[input,setInput]=useState('')//empty text area
   const[editingIndex,setEditingIndex]=useState(null)
 
-
+//Appマウント時に1回のみ実行↓↓
 useEffect(()=>{
 const restored_uncompleted_list=JSON.parse(localStorage.getItem("saved_uncompleted_list"))
 console.log("restored_uncompleted_list is...");
 console.log(restored_uncompleted_list);
 if(restored_uncompleted_list){
   setTodos(restored_uncompleted_list);
+
+
+
 }
 },[])
 
-  //todosに変化が生じた時だけ以下を実行↓↓
+  //todosに変化が生じた時だけ以下を実行↓↓(初回マウント時も実行される)
   useEffect(()=>{    
             localStorage.setItem("saved_uncompleted_list",JSON.stringify(todos));
             console.log("(at App() )localStorage Updated!");
@@ -38,7 +44,7 @@ alert("タスクを入力してください！");
 return
 }
 //状態変数を更新↓↓
-setTodos([{text:input,completed:false}, ...todos])//Updating setTodos Array (prepending "input" to the todos array)
+setTodos(prev=>[{text:input,completed:false}, ...prev])//Updating setTodos Array (prepending "input" to the todos array)
 setInput('')//Initializing the "input" (since you pressed the Add button)
 console.log("(at handleAdd) todos=")
 console.log(todos)
