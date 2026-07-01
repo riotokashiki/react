@@ -12,6 +12,11 @@ export default function App() {
   })//an empty array
   const[input,setInput]=useState('')//empty text area
   const[editingIndex,setEditingIndex]=useState(null)
+  const[doneTodos,setDoneTodos]=useState(()=>{
+    const restored_completed_list=JSON.parse(localStorage.getItem("saved_completed_list"))
+    return restored_completed_list?restored_completed_list:[]
+
+  })
 
 //Appマウント時に1回のみ実行↓↓
 useEffect(()=>{
@@ -118,7 +123,7 @@ return todo
                 )
               })}
                 </ul>
-                  
+                  <p>completed list</p>
           
           
         </div>
