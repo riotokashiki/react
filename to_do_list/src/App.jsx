@@ -70,6 +70,13 @@ return index!==i
 }
 }
 
+function add_completed(i){
+setDoneTodos(prev=>[{text:todos[i].text,completed:true}, ...prev])//Updating setTodos Array (prepending "input" to the todos array)
+
+  
+}
+
+
  function completeTask(i){
   
 if(todos[i].completed){
@@ -101,7 +108,7 @@ return todo
       setEditingIndex(i)//編集インデックスをiへ更新
     }
 
-
+ const show_or_not={display:doneTodos.length!==0?"block":"none"}
 
 
 
@@ -115,16 +122,31 @@ return todo
                 <ul>
                 {todos.map((todo,i)=>{
                     const striken={
-                  textDecoration:todos[i].completed?"line-through":"none"
+                  display:todos[i].completed?"none":"flex"
                 }
+      
 
               return( // the i is how index numbers should be called
-                <li key={i} style={striken}  onClick={()=>completeTask(i)}>{editingIndex===i?<input value={todo.text}></input>:todo.text}<button className="del_button" onClick={(e)=>removeTask(i,e)}>x</button></li>
+                <li key={i} style={striken}  onClick={()=>{completeTask(i) ;add_completed(i)}}>{editingIndex===i?<input value={todo.text}></input>:todo.text}<button className="del_button" onClick={(e)=>removeTask(i,e)}>x</button></li>
                 )
               })}
                 </ul>
-                  <p>completed list</p>
-          
+                <div style={show_or_not}>
+                  <p >completed list </p>
+                <ul>
+                  {
+                    doneTodos.map((todo,i)=>{
+                              
+                      return(
+                      <li key={i} >{doneTodos[i].text}</li>
+                    )
+
+                    })
+                    
+                  }
+                </ul>
+                </div>
+        
           
         </div>
   )
