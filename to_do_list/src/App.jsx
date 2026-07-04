@@ -3,6 +3,8 @@ import{useState,useEffect} from 'react'
 //cssシートをインポート↓↓
 import './App.css';
 
+import ResetButton from './reset_button';
+
 //大文字で始まってるのでリアクトコンポーネント↓↓
 export default function App() {
 
@@ -170,7 +172,7 @@ return todo
                 </ul>
                 </div>
         
-          
+          <ResetButton completed={setDoneTodos} uncompleted={setTodos}/>
         </div>
   )
 }
