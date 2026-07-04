@@ -21,23 +21,31 @@ export default function App() {
 //Appマウント時に1回のみ実行↓↓
 useEffect(()=>{
 const restored_uncompleted_list=JSON.parse(localStorage.getItem("saved_uncompleted_list"))
+const restored_completed_list=JSON.parse(localStorage.getItem("saved_completed_list"))
 console.log("restored_uncompleted_list is...");
 console.log(restored_uncompleted_list);
+console.log("restored_completed_list is...");
+console.log(restored_completed_list);
 if(restored_uncompleted_list){
   setTodos(restored_uncompleted_list);
-
-
-
+}
+if(restored_completed_list){
+  setDoneTodos(restored_completed_list);
 }
 },[])
 
   //todosに変化が生じた時だけ以下を実行↓↓(初回マウント時も実行される)
   useEffect(()=>{    
             localStorage.setItem("saved_uncompleted_list",JSON.stringify(todos));
-            console.log("(at App() )localStorage Updated!");
+            console.log("(at App() )localStorage uncompleted_list is...");
             console.log(JSON.parse(localStorage.getItem("saved_uncompleted_list")));                
   },[todos])
 
+    useEffect(()=>{    
+            localStorage.setItem("saved_completed_list",JSON.stringify(doneTodos));
+            console.log("(at App() )localStorage completed_list is...");
+            console.log(JSON.parse(localStorage.getItem("saved_completed_list")));                
+  },[doneTodos])
 
 
 
@@ -70,10 +78,25 @@ return index!==i
 }
 }
 
+function removeTask_completed(i,e){
+    console.log("The remove button clicked!");
+  e.stopPropagation();
+setDoneTodos(doneTodos.filter((_,index)=>removeCurrentIndex(index)))
+// .filterはcallbackにtrueを返すもののみを残す
+
+// the callback関数↓↓
+function removeCurrentIndex(index){
+  console.log(`index!==${i}=${index!==todos[i]}`)
+return index!==i
+// index が i じゃないものをtrueとして残す(indexがiのアイテムを削除)
+}
+}
+
+
 function add_completed(i){
 setDoneTodos(prev=>[{text:todos[i].text,completed:true}, ...prev])//Updating setTodos Array (prepending "input" to the todos array)
-
-  
+console.log("(stale)doneTodos is...");
+console.log(doneTodos);
 }
 
 
@@ -138,7 +161,7 @@ return todo
                     doneTodos.map((todo,i)=>{
                               
                       return(
-                      <li key={i} >{doneTodos[i].text}</li>
+                      <li key={i} >{doneTodos[i].text}<button className="del_button" onClick={(e)=>removeTask_completed(i,e)}>x</button></li>
                     )
 
                     })
