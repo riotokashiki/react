@@ -17,8 +17,11 @@ export default function App() {
   const[doneTodos,setDoneTodos]=useState(()=>{
     const restored_completed_list=JSON.parse(localStorage.getItem("saved_completed_list"))
     return restored_completed_list?restored_completed_list:[]
-
   })
+  const[priority,setPriority]=useState("middle")
+  const onOptionChange=(e)=>{
+    setPriority(e.target.value)
+  }
 
 //Appマウント時に1回のみ実行↓↓
 useEffect(()=>{
@@ -49,7 +52,12 @@ if(restored_completed_list){
             console.log(JSON.parse(localStorage.getItem("saved_completed_list")));                
   },[doneTodos])
 
+  useEffect(()=>{    
+console.log("current priority="+priority)            
+  },[priority])
 
+
+  
 
 
   //Regular Function↓↓
@@ -59,10 +67,22 @@ alert("タスクを入力してください！");
 return
 }
 //状態変数を更新↓↓
-setTodos(prev=>[{text:input,completed:false}, ...prev])//Updating setTodos Array (prepending "input" to the todos array)
+if(priority==="middle"){
+setTodos(prev=>[{text:input,completed:false,priority:"middle"}, ...prev])//Updating setTodos Array (prepending "input" to the todos array)
 setInput('')//Initializing the "input" (since you pressed the Add button)
 console.log("(at handleAdd) todos=")
 console.log(todos)
+}else if(priority==="high"){
+setTodos(prev=>[{text:input,completed:false,priority:"high"}, ...prev])//Updating setTodos Array (prepending "input" to the todos array)
+setInput('')//Initializing the "input" (since you pressed the Add button)
+console.log("(at handleAdd) todos=")
+console.log(todos)
+}else{
+  setTodos(prev=>[{text:input,completed:false,priority:"low"}, ...prev])//Updating setTodos Array (prepending "input" to the todos array)
+setInput('')//Initializing the "input" (since you pressed the Add button)
+console.log("(at handleAdd) todos=")
+console.log(todos)
+}
 }
 
 
@@ -141,8 +161,26 @@ return todo
         
         <div className='container'>
                   <div className="input_container">
-                          <input value={input} className="inputField" onKeyDown={(e)=>{if(e.key==="Enter") handleAdd()} } onChange={(e)=>{setInput(e.target.value)}}/*setting an eventListener*/  />
+                    <input value={input} className="inputField" onKeyDown={(e)=>{if(e.key==="Enter") handleAdd()} } onChange={(e)=>{setInput(e.target.value)}}/*setting an eventListener*/  />
                           <button onClick={handleAdd} className='add_button'>Add</button>
+
+                    <div className="pritorityContainer">
+                        <p className="priority-title">優先度：</p>
+            <div className="buttonWrapper">
+                <div className="choiceWrapper1">
+                    <input type="radio" id="priorityChoice1" name="priority" value="high"onChange={(e)=>{onOptionChange(e)}}/>
+                    <label htmlFor="priorityChoice1" >高</label>
+                </div>
+                <div className="choiceWrapper2">
+                    <input type="radio" id="priorityChoice2" name="priority" value="middle" onChange={(e)=>{onOptionChange(e)}}  defaultChecked/>
+                    <label htmlFor="priorityChoice2">中</label>
+                </div>
+                <div className="choiceWrapper3">
+                    <input type="radio" id="priorityChoice3" name="priority" value="low"onChange={(e)=>{onOptionChange(e)}}/>
+                    <label htmlFor="priorityChoice3">低</label>
+                </div>
+            </div>
+                </div>
                 </div>
                 <ul>
                 {todos.map((todo,i)=>{
@@ -152,18 +190,20 @@ return todo
       
 
               return( // the i is how index numbers should be called
-                <li key={i} style={striken}  onClick={()=>{completeTask(i) ;add_completed(i)}}>{editingIndex===i?<input value={todo.text}></input>:todo.text}<button className="del_button" onClick={(e)=>removeTask(i,e)}>x</button></li>
+                <li key={i} style={striken} className="list"  onClick={()=>{completeTask(i) ;add_completed(i)}}>{editingIndex===i?<input value={todo.text}></input>:todo.text}<button className="del_button" onClick={(e)=>removeTask(i,e)}>x</button></li>
                 )
               })}
                 </ul>
                 <div style={show_or_not}>
-                  <p >completed list </p>
+                  <p className="sectionTitle">completed list </p>
                 <ul>
                   {
                     doneTodos.map((todo,i)=>{
-                              
+                              const hide={
+                                textDecoration:"line-through"
+                              }
                       return(
-                      <li key={i} >{doneTodos[i].text}<button className="del_button" onClick={(e)=>removeTask_completed(i,e)}>x</button></li>
+                      <li key={i} style={hide} className="list" >{doneTodos[i].text}<button className="del_button" onClick={(e)=>removeTask_completed(i,e)}>x</button></li>
                     )
 
                     })
