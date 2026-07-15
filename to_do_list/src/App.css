@@ -1,91 +1,97 @@
-
 div#root {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
-
-.add_button{
-/* width: 10%; */
+.add_button {
+  /* width: 10%; */
   background-color: green;
   overflow: hidden;
 }
 
-li{
+li {
   list-style-type: none;
   width: 51%;
-    display: flex;
-    justify-content: space-between;
-
+  display: flex;
+  justify-content: space-between;
 }
 
 ul {
-    padding-left: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.del_button{
+.del_button {
   background-color: red;
 }
-.container{
+.container {
   width: 50vw;
 }
 
 input {
-    width: 90%;
+  width: 90%;
 }
 
-.sectionTitle{
+.sectionTitle {
   text-align: center;
 }
-.list{
-  border:solid 1px black
+.list {
+  border: solid 1px black;
 }
 
-
-      .choiceWrapper1{
-       background-color: rgb(248, 147, 147);
-       display: flex;
-       flex-direction: column;
-       width: 2rem;
-       justify-content: center;
-       align-items: center;
-      }
-       .choiceWrapper2{
-       background-color: rgb(243, 248, 147);
-          display: flex;
-       flex-direction: column;
-        width: 2rem;
-       justify-content: center;
-       align-items: center;
-      }
-       .choiceWrapper3{
-       background-color: rgb(147, 177, 248);
-          display: flex;
-       flex-direction: column;
-        width: 2rem;
-       justify-content: center;
-       align-items: center;
-      }
-
-      .priority-title{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .buttonWrapper{
-      display: flex;
-    overflow: hidden;
-    border-radius: 5px;
+.choiceWrapper1 {
+  background-color: rgb(248, 147, 147);
+  display: flex;
+  flex-direction: column;
+  width: 2rem;
+  justify-content: center;
+  align-items: center;
 }
-   .priority-title{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .priorityContainer{
-        display: flex;
-        justify-content: center;
-      }
+.choiceWrapper2 {
+  background-color: rgb(243, 248, 147);
+  display: flex;
+  flex-direction: column;
+  width: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+.choiceWrapper3 {
+  background-color: rgb(147, 177, 248);
+  display: flex;
+  flex-direction: column;
+  width: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.priority-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.buttonWrapper {
+  display: flex;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.priority-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.priorityContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.priority1 {
+  border-left: 10px red solid;
+}
+.priority2 {
+  border-left: 10px yellow solid;
+}
+.priority3 {
+  border-left: 10px blue solid;
+}
