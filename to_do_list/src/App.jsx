@@ -112,16 +112,16 @@ export default function App() {
     }
   }
 
-  function move_it_back(i, e,id) {
+  function move_it_back(i, e, id) {
     console.log("The completed item clicked!");
-    setTodos(todos.map((todo) => {
-
-      if(todo.id===id){
-        return todo.completed===false
-      }
-      return todo
-
-    }));
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, completed: false };
+        }
+        return todo;
+      }),
+    );
     setIsMoveItBackDone(true);
     removeTask_completed(i, e);
   }
@@ -143,7 +143,10 @@ export default function App() {
   }
 
   function add_completed(i) {
-    setDoneTodos((prev) => [{ text: todos[i].text, completed: true, id:todos[i].id}, ...prev]); //Updating setTodos Array (prepending "input" to the todos array)
+    setDoneTodos((prev) => [
+      { text: todos[i].text, completed: true, id: todos[i].id },
+      ...prev,
+    ]); //Updating setTodos Array (prepending "input" to the todos array)
     console.log("(stale)doneTodos is...");
     console.log(doneTodos);
   }
@@ -263,6 +266,7 @@ export default function App() {
                 add_completed(i);
               }}
             >
+              <input type="checkbox"></input>
               {editingIndex === i ? (
                 <input value={todo.text}></input>
               ) : (
@@ -287,9 +291,10 @@ export default function App() {
                 key={i}
                 style={hide}
                 className="list"
-                onClick={(e) => move_it_back(i, e,todo.id)}
+                onClick={(e) => move_it_back(i, e, todo.id)}
                 id={todo.id}
               >
+                <input type="checkbox" checked={true} readOnly></input>
                 {doneTodos[i].text}
                 <button
                   className="del_button"
