@@ -1,5 +1,5 @@
 //React Hookをインポート↓↓
-import { useState, useEffect } from "react";
+import { useState, useEffect, createElement } from "react";
 //cssシートをインポート↓↓
 import "./App.css";
 
@@ -26,7 +26,8 @@ export default function App() {
     setPriority(e.target.value);
   };
   const [isMoveItBackDone, setIsMoveItBackDone] = useState(false);
-
+  const [editText, setEditText] = useState("");
+  const [isEditActive, setIsEditActive] = useState(false);
   //Appマウント時に1回のみ実行↓↓
   useEffect(() => {
     const restored_uncompleted_list = JSON.parse(
@@ -151,7 +152,8 @@ export default function App() {
     console.log(doneTodos);
   }
 
-  function completeTask(i) {
+  function completeTask(i, e) {
+    e.target.checked = false;
     if (todos[i].completed) {
       console.log("completeTask() executed! and strikethrough removed!");
       setTodos(
@@ -177,6 +179,21 @@ export default function App() {
 
   function editTask(i) {
     setEditingIndex(i); //編集インデックスをiへ更新
+    setEditText(todos[i].text);
+    setIsEditActive(true);
+  }
+
+  function saveTask(i) {
+    setTodos(
+      todos.map((todo, index) => {
+        if (index === i) {
+          return { ...todo, text: editText };
+        }
+        return todo;
+      }),
+    );
+
+    setEditingIndex(null);
   }
 
   const show_or_not = { display: doneTodos.length !== 0 ? "block" : "none" };
@@ -261,17 +278,32 @@ export default function App() {
               key={i}
               style={{ ...striken, ...priority_style }}
               className="list"
-              onClick={() => {
-                completeTask(i);
-                add_completed(i);
-              }}
+              id={todo.id}
             >
-              <input type="checkbox"></input>
+              <input
+                type="checkbox"
+                onClick={(e) => {
+                  completeTask(i, e);
+                  add_completed(i);
+                }}
+              ></input>
               {editingIndex === i ? (
-                <input value={todo.text}></input>
+                <input
+                  value={editText}
+                  onChange={(e) => {
+                    setEditText(e.target.value);
+                  }}
+                ></input>
               ) : (
                 todo.text
               )}
+
+              <button
+                className="edit_button"
+                onClick={() => (editingIndex === i ? saveTask(i) : editTask(i))}
+              >
+                {editingIndex === i ? "Save" : "Edit"}
+              </button>
               <button className="del_button" onClick={(e) => removeTask(i, e)}>
                 x
               </button>
