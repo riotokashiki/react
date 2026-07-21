@@ -21,7 +21,7 @@ export default function App() {
     );
     return restored_completed_list ? restored_completed_list : [];
   });
-  const [priority, setPriority] = useState("middle");
+  const [priority, setPriority] = useState("2");
   const onOptionChange = (e) => {
     setPriority(e.target.value);
   };
@@ -72,17 +72,17 @@ export default function App() {
       return;
     }
     //状態変数を更新↓↓
-    if (priority === "middle") {
+    if (priority === "2") {
       setTodos((prev) => [
-        { text: input, completed: false, priority: "middle", id: Date.now() },
+        { text: input, completed: false, priority: "2", id: Date.now() },
         ...prev,
       ]); //Updating setTodos Array (prepending "input" to the todos array)
       setInput(""); //Initializing the "input" (since you pressed the Add button)
       console.log("(at handleAdd) todos=");
       console.log(todos);
-    } else if (priority === "high") {
+    } else if (priority === "1") {
       setTodos((prev) => [
-        { text: input, completed: false, priority: "high", id: Date.now() },
+        { text: input, completed: false, priority: "1", id: Date.now() },
         ...prev,
       ]); //Updating setTodos Array (prepending "input" to the todos array)
       setInput(""); //Initializing the "input" (since you pressed the Add button)
@@ -90,7 +90,7 @@ export default function App() {
       console.log(todos);
     } else {
       setTodos((prev) => [
-        { text: input, completed: false, priority: "low", id: Date.now() },
+        { text: input, completed: false, priority: "3", id: Date.now() },
         ...prev,
       ]); //Updating setTodos Array (prepending "input" to the todos array)
       setInput(""); //Initializing the "input" (since you pressed the Add button)
@@ -196,6 +196,14 @@ export default function App() {
     setEditingIndex(null);
   }
 
+  function sort_by_priority() {
+    setTodos(
+      todos.toSorted((a, b) => {
+        return a.priority - b.priority;
+      }),
+    );
+  }
+
   const show_or_not = { display: doneTodos.length !== 0 ? "block" : "none" };
 
   return (
@@ -223,7 +231,7 @@ export default function App() {
                 type="radio"
                 id="priorityChoice1"
                 name="priority"
-                value="high"
+                value="1"
                 onChange={(e) => {
                   onOptionChange(e);
                 }}
@@ -235,7 +243,7 @@ export default function App() {
                 type="radio"
                 id="priorityChoice2"
                 name="priority"
-                value="middle"
+                value="2"
                 onChange={(e) => {
                   onOptionChange(e);
                 }}
@@ -248,7 +256,7 @@ export default function App() {
                 type="radio"
                 id="priorityChoice3"
                 name="priority"
-                value="low"
+                value="3"
                 onChange={(e) => {
                   onOptionChange(e);
                 }}
@@ -257,6 +265,7 @@ export default function App() {
             </div>
           </div>
         </div>
+        <button onClick={() => sort_by_priority()}>sort by priority</button>
       </div>
       <ul>
         {todos.map((todo, i) => {
@@ -265,9 +274,9 @@ export default function App() {
           };
           const priority_style = {
             borderLeft:
-              todo.priority === "low"
+              todo.priority === "3"
                 ? "10px blue solid"
-                : todo.priority === "middle"
+                : todo.priority === "2"
                   ? " 10px yellow solid"
                   : "10px red solid",
           };
