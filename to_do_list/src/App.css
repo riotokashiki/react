@@ -276,3 +276,112 @@ span {
 p.title {
   margin: 1rem;
 }
+
+@media (max-width: 768px) {
+  * {
+    font-size: 0.9rem;
+  }
+
+  .wholeContainer {
+    width: 70vw;
+  }
+
+  .li_button {
+    margin-right: null;
+  }
+
+  span {
+    width: 32vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .li_button {
+    font-size: 10px;
+    margin: 0;
+  }
+
+  * {
+    font-size: 0.84rem;
+  }
+
+  .wholeContainer {
+    width: 85vw;
+  }
+
+  .devidingContainer2 p {
+    font-size: 0.9rem;
+    margin: 0.8rem;
+  }
+
+  .addButton {
+    margin-top: 5vh;
+  }
+
+  #inputField {
+    font-size: 0.6rem;
+  }
+
+  #sort {
+    font-size: 0.6rem;
+  }
+}
+.smoothDelete {
+  animation: smoothDelete 0.15s ease;
+}
+
+@keyframes smoothDelete {
+  from {
+    opacity: 1;
+    max-height: 2rem;
+  }
+  to {
+    opacity: 0;
+    max-height: 0rem;
+  }
+}
+
+.smoothGrowing {
+  animation: growingDown 0.25s ease;
+}
+@keyframes growingDown {
+  from {
+    opacity: 0;
+    max-height: 0rem;
+  }
+  to {
+    opacity: 1;
+    max-height: 2rem;
+  }
+}
+.receivingInCompletedList {
+  animation-name: receiving;
+  animation-timing-function: ease;
+  animation-duration: 0.25s;
+}
+
+@keyframes receiving {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+.taskCompleted {
+  animation-name: completed;
+  animation-timing-function: ease;
+  animation-duration: 0.25s;
+}
+@keyframes completed {
+  from {
+    opacity: 1;
+    max-height: 2rem;
+  }
+  to {
+    opacity: 0;
+    max-height: 0rem;
+  }
+}

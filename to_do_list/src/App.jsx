@@ -27,7 +27,8 @@ export default function App() {
   };
   const [isMoveItBackDone, setIsMoveItBackDone] = useState(false);
   const [editText, setEditText] = useState("");
-  const [isEditActive, setIsEditActive] = useState(false);
+  const [animate, setAnimate] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   //Appマウント時に1回のみ実行↓↓
   useEffect(() => {
     const restored_uncompleted_list = JSON.parse(
@@ -64,6 +65,14 @@ export default function App() {
   useEffect(() => {
     console.log("current priority=" + priority);
   }, [priority]);
+
+  useEffect(() => {
+    console.log("animate is " + animate);
+  }, [animate]);
+
+  useEffect(() => {
+    console.log("isDeleting is " + isDeleting);
+  }, [isDeleting]);
 
   //Regular Function↓↓
   function handleAdd() {
@@ -268,7 +277,14 @@ export default function App() {
           </div>
         </div>
         <div className="devidingContainer3">
-          <button onClick={handleAdd} className="add_button">
+          <button
+            onClick={() => {
+              handleAdd();
+              setAnimate(true);
+            }}
+            className={`add_button ${animate ? "add_buttonPushed" : ""} `}
+            onTransitionEnd={() => setAnimate(false)}
+          >
             +
           </button>
           <button onClick={() => sort_by_priority()}>優先度順に整列</button>
@@ -295,6 +311,8 @@ export default function App() {
                 key={i}
                 style={{ ...striken, ...priority_style }}
                 id={todo.id}
+                className={isDeleting ? "smoothDelete" : ""}
+                onAnimationEnd={() => setIsDeleting(false)}
               >
                 <input
                   type="checkbox"
@@ -324,7 +342,10 @@ export default function App() {
                 </button>
                 <button
                   className=" li_button"
-                  onClick={(e) => removeTask(i, e)}
+                  onClick={(e) => {
+                    setIsDeleting(true);
+                    removeTask(i, e);
+                  }}
                 >
                   削除
                 </button>
