@@ -207,148 +207,160 @@ export default function App() {
   const show_or_not = { display: doneTodos.length !== 0 ? "block" : "none" };
 
   return (
-    <div className="container">
-      <div className="input_container">
-        <input
-          value={input}
-          className="inputField"
-          onKeyDown={(e) => {
-            if (e.key === "Enter") handleAdd();
-          }}
-          onChange={(e) => {
-            setInput(e.target.value);
-          }} /*setting an eventListener*/
-        />
-        <button onClick={handleAdd} className="add_button">
-          Add
-        </button>
-
-        <div className="pritorityContainer">
-          <p className="priority-title">優先度：</p>
-          <div className="buttonWrapper">
-            <div className="choiceWrapper1">
-              <input
-                type="radio"
-                id="priorityChoice1"
-                name="priority"
-                value="1"
-                onChange={(e) => {
-                  onOptionChange(e);
-                }}
-              />
-              <label htmlFor="priorityChoice1">高</label>
-            </div>
-            <div className="choiceWrapper2">
-              <input
-                type="radio"
-                id="priorityChoice2"
-                name="priority"
-                value="2"
-                onChange={(e) => {
-                  onOptionChange(e);
-                }}
-                defaultChecked
-              />
-              <label htmlFor="priorityChoice2">中</label>
-            </div>
-            <div className="choiceWrapper3">
-              <input
-                type="radio"
-                id="priorityChoice3"
-                name="priority"
-                value="3"
-                onChange={(e) => {
-                  onOptionChange(e);
-                }}
-              />
-              <label htmlFor="priorityChoice3">低</label>
+    <div className="wholeContainer">
+      <div className="upperHalfContainer">
+        <div className="devidingContainer1"></div>
+        <div className="devidingContainer2">
+          <p className="title">タスク管理アプリ（React Ver）</p>
+          <div className="input_and_button_container">
+            <input
+              value={input}
+              className="inputField"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleAdd();
+              }}
+              onChange={(e) => {
+                setInput(e.target.value);
+              }} /*setting an eventListener*/
+            />
+          </div>
+          <div className="pritorityContainer">
+            <p className="priority-title">優先度：</p>
+            <div className="buttonWrapper">
+              <div className="choiceWrapper1">
+                <input
+                  type="radio"
+                  id="priorityChoice1"
+                  name="priority"
+                  value="1"
+                  onChange={(e) => {
+                    onOptionChange(e);
+                  }}
+                />
+                <label htmlFor="priorityChoice1">高</label>
+              </div>
+              <div className="choiceWrapper2">
+                <input
+                  type="radio"
+                  id="priorityChoice2"
+                  name="priority"
+                  value="2"
+                  onChange={(e) => {
+                    onOptionChange(e);
+                  }}
+                  defaultChecked
+                />
+                <label htmlFor="priorityChoice2">中</label>
+              </div>
+              <div className="choiceWrapper3">
+                <input
+                  type="radio"
+                  id="priorityChoice3"
+                  name="priority"
+                  value="3"
+                  onChange={(e) => {
+                    onOptionChange(e);
+                  }}
+                />
+                <label htmlFor="priorityChoice3">低</label>
+              </div>
             </div>
           </div>
         </div>
-        <button onClick={() => sort_by_priority()}>sort by priority</button>
+        <div className="devidingContainer3">
+          <button onClick={handleAdd} className="add_button">
+            +
+          </button>
+          <button onClick={() => sort_by_priority()}>優先度順に整列</button>
+        </div>
       </div>
-      <ul>
-        {todos.map((todo, i) => {
-          const striken = {
-            display: todos[i].completed ? "none" : "flex",
-          };
-          const priority_style = {
-            borderLeft:
-              todo.priority === "3"
-                ? "10px blue solid"
-                : todo.priority === "2"
-                  ? " 10px yellow solid"
-                  : "10px red solid",
-          };
-
-          return (
-            // the i is how index numbers should be called
-            <li
-              key={i}
-              style={{ ...striken, ...priority_style }}
-              className="list"
-              id={todo.id}
-            >
-              <input
-                type="checkbox"
-                onClick={(e) => {
-                  completeTask(i, e);
-                  add_completed(i);
-                }}
-              ></input>
-              {editingIndex === i ? (
-                <input
-                  value={editText}
-                  onChange={(e) => {
-                    setEditText(e.target.value);
-                  }}
-                ></input>
-              ) : (
-                todo.text
-              )}
-
-              <button
-                className="edit_button"
-                onClick={() => (editingIndex === i ? saveTask(i) : editTask(i))}
-              >
-                {editingIndex === i ? "Save" : "Edit"}
-              </button>
-              <button className="del_button" onClick={(e) => removeTask(i, e)}>
-                x
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-      <div style={show_or_not}>
-        <p className="sectionTitle">completed list </p>
+      <div className="uncompletedListContainer">
         <ul>
-          {doneTodos.map((todo, i) => {
-            const hide = {
-              textDecoration: "line-through",
+          {todos.map((todo, i) => {
+            const striken = {
+              display: todos[i].completed ? "none" : "flex",
             };
+            const priority_style = {
+              borderLeft:
+                todo.priority === "3"
+                  ? "10px blue solid"
+                  : todo.priority === "2"
+                    ? " 10px yellow solid"
+                    : "10px red solid",
+            };
+
             return (
+              // the i is how index numbers should be called
               <li
                 key={i}
-                style={hide}
-                className="list"
-                onClick={(e) => move_it_back(i, e, todo.id)}
+                style={{ ...striken, ...priority_style }}
                 id={todo.id}
               >
-                <input type="checkbox" checked={true} readOnly></input>
-                {doneTodos[i].text}
+                <input
+                  type="checkbox"
+                  onClick={(e) => {
+                    completeTask(i, e);
+                    add_completed(i);
+                  }}
+                ></input>
+                {editingIndex === i ? (
+                  <input
+                    value={editText}
+                    onChange={(e) => {
+                      setEditText(e.target.value);
+                    }}
+                  ></input>
+                ) : (
+                  <span> {todo.text}</span>
+                )}
+
                 <button
-                  className="del_button"
-                  onClick={(e) => removeTask_completed(i, e)}
+                  className="edit_button li_button"
+                  onClick={() =>
+                    editingIndex === i ? saveTask(i) : editTask(i)
+                  }
                 >
-                  x
+                  {editingIndex === i ? "保存" : "編集"}
+                </button>
+                <button
+                  className=" li_button"
+                  onClick={(e) => removeTask(i, e)}
+                >
+                  削除
                 </button>
               </li>
             );
           })}
         </ul>
       </div>
-
+      <div className="completedListContainer">
+        <div className="show_or_not" style={show_or_not}>
+          <p className="sectionTitle">完了したタスク</p>
+          <ul>
+            {doneTodos.map((todo, i) => {
+              const hide = {
+                textDecoration: "line-through",
+              };
+              return (
+                <li
+                  key={i}
+                  onClick={(e) => move_it_back(i, e, todo.id)}
+                  id={todo.id}
+                >
+                  <input type="checkbox" checked={true} readOnly></input>
+                  <span style={hide}>{doneTodos[i].text}</span>
+                  <button
+                    className=" li_button"
+                    onClick={(e) => removeTask_completed(i, e)}
+                  >
+                    削除
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
       <ResetButton completed={setDoneTodos} uncompleted={setTodos} />
     </div>
   );
