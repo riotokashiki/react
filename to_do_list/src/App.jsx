@@ -29,6 +29,7 @@ export default function App() {
   const [editText, setEditText] = useState("");
   const [animate, setAnimate] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const[deletingIndex,setDeletingIndex]=useState("");
   //Appマウント時に1回のみ実行↓↓
   useEffect(() => {
     const restored_uncompleted_list = JSON.parse(
@@ -74,6 +75,11 @@ export default function App() {
     console.log("isDeleting is " + isDeleting);
   }, [isDeleting]);
 
+useEffect(() => {
+    console.log("deletingIndex is " + deletingIndex);
+  }, [deletingIndex]);
+
+
   //Regular Function↓↓
   function handleAdd() {
     if (!input) {
@@ -113,6 +119,8 @@ export default function App() {
     e.stopPropagation();
     setTodos(todos.filter((_, index) => removeCurrentIndex(index)));
     // .filterはcallbackにtrueを返すもののみを残す
+
+    setDeletingIndex(i)
 
     // the callback関数↓↓
     function removeCurrentIndex(index) {
@@ -311,8 +319,8 @@ export default function App() {
                 key={i}
                 style={{ ...striken, ...priority_style }}
                 id={todo.id}
-                className={isDeleting ? "smoothDelete" : ""}
-                onAnimationEnd={() => setIsDeleting(false)}
+                className={!isDeleting?"":deletingIndex===i?"smoothDelete":"" }
+                onAnimationEnd={() => {setIsDeleting(false) ;setDeletingIndex("")}}
               >
                 <input
                   type="checkbox"
