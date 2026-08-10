@@ -1,16 +1,43 @@
-# React + Vite
+#React タスク管理アプリ
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+こちらは私がReactを使用して製作したTo-Doリストアプリです。（タスク管理アプリ）
 
-Currently, two official plugins are available:
+## タスクに優先度を割り当て可能
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+このTo-Doリストアプリはタスクに優先度を割り当てることができます。
 
-## React Compiler
+例えば　入力フィールドに「牛乳を買う」と入力してください。
+そして
+優先度のラジオボタンを「低」にあわせます。
+次にEnterまたは「＋」ボタンをクリックします。
+すると
+優先度：「低」
+のタスク：
+「牛乳を買う」
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+をリストに追加できます。
+重要で緊急度の高いタスク、例えば
+「部長にプロジェクトの結果を報告」
+には優先度「高」を設定しましょう。
 
-## Expanding the ESLint configuration
+このアプリを使っていくうちにリストがたまってきます。そうなると何を優先すべきなのかが見づらくなってきます。　
+そんな時に便利なのが「優先度順に並べる」のボタンです。
+これをクリックすると、優先度が高い順に上から並べて整列されます。
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+そうすることで、緊急度の高い＝優先度の高いタスクが一番上に来て一番見やすくなります。
+
+## 完了したタスクは　「完了したタスク」リストへと移動
+
+タスクの左手にある四角いチェックボックスをクリックしていただくと、このタスクは完了したものとみなされ、下の「完了したタスク」リストへと追加されます。これは単純に、横線を引いてそのまま放置するよりも確実に視認性がよく、UXが上がるために実装しています。
+
+## リセットボタン
+
+画面右下に「Reset」ボタンが見えると思います。
+それをクリックしていただくと、タスクが全部削除され、初期状態へと戻ります。
+
+## スムーズなアニメーション
+
+タスク追加時に　緑の「＋」ボタンが押されて凹むアニメーション、
+タスクが追加されるときにググッと生えるようにして追加されるアニメーション、
+そしてタスク削除時にタスクが小さくなって消滅するアニメーション、
+これらのアニメーションはユーザーにとって「自分がアプリを操作している」という実感を与えて直感的で気持ちのいい体験になることを狙って実装しています。
