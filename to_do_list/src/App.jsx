@@ -284,6 +284,7 @@ export default function App() {
                   onChange={(e) => {
                     onOptionChange(e);
                   }}
+                  style={{ fontWeight: "500" }}
                 />
                 <label htmlFor="priorityChoice3">低</label>
               </div>
@@ -300,7 +301,9 @@ export default function App() {
           >
             +
           </button>
-          <button onClick={() => sort_by_priority()}>優先度順に整列</button>
+          <button className="sort_button" onClick={() => sort_by_priority()}>
+            優先度順に整列
+          </button>
         </div>
       </div>
       <div className="uncompletedListContainer">
@@ -348,11 +351,12 @@ export default function App() {
                     }}
                   ></input>
                 ) : (
-                  <span> {todo.text}</span>
+                  <span style={{ fontWeight: "500" }}> {todo.text}</span>
                 )}
 
                 <button
                   className="edit_button li_button"
+                  style={{ fontWeight: "500" }}
                   onClick={() =>
                     editingIndex === i ? saveTask(i) : editTask(i)
                   }
@@ -365,6 +369,7 @@ export default function App() {
                     setIsDeleting(true);
                     removeTask(i, e);
                   }}
+                  style={{ fontWeight: "500" }}
                 >
                   削除
                 </button>

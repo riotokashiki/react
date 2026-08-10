@@ -4,8 +4,26 @@
   border-radius: 15px;
   padding: 10px;
   background-color: white;
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  transition: transform 0.5s ease;
 }
 
+.manual:hover {
+  transform: scale(1.05);
+  text-decoration: underline blue 0.3px;
+}
 .manual a {
+  display: block;
   text-decoration: none;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+}
+
+
+@media (max-width: 480px) {
 }

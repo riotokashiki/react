@@ -61,6 +61,7 @@ ul {
   width: 2rem;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
 }
 .choiceWrapper2 {
   background-color: rgb(243, 248, 147);
@@ -69,6 +70,7 @@ ul {
   width: 2rem;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
 }
 .choiceWrapper3 {
   background-color: rgb(147, 177, 248);
@@ -77,12 +79,14 @@ ul {
   width: 2rem;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
 }
 
 .priority-title {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
 }
 .buttonWrapper {
   display: flex;
@@ -219,6 +223,19 @@ span {
   z-index: 1;
 }
 
+.devidingContainer3 button {
+  font-weight: bold;
+  border-radius: 7px;
+}
+
+.sort_button {
+  border-radius: 0px;
+  font-size: 14px;
+  padding: 2px;
+  display: flex;
+  line-height: 100%;
+}
+
 .upperHalfContainer {
   position: relative;
   width: 100%;
@@ -275,6 +292,7 @@ span {
 
 p.title {
   margin: 1rem;
+  font-weight: bold;
 }
 
 @media (max-width: 768px) {

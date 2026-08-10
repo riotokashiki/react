@@ -4,7 +4,22 @@ body {
   position: relative;
 }
 
-manualButton {
+.manual {
   position: absolute;
   left: 0px;
+}
+
+@media (max-width: 768px) {
+  html,
+  body {
+    display: block;
+    flex-direction: column;
+  }
+
+  .manual {
+    position: static;
+  }
+}
+
+@media (max-width: 480px) {
 }
