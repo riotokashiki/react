@@ -29,9 +29,6 @@ export default function App() {
   const [editText, setEditText] = useState("");
   const [animate, setAnimate] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [deleteIndex, setDeleteIndex] = useState(null);
-  const [isAdding, setIsAdding] = useState(false);
-  const [addIndex, setAddIndex] = useState(null);
   //Appマウント時に1回のみ実行↓↓
   useEffect(() => {
     const restored_uncompleted_list = JSON.parse(
@@ -84,7 +81,6 @@ export default function App() {
   //Regular Function↓↓
   function handleAdd() {
     setAnimate(true);
-    setIsAdding(true);
     if (!input) {
       alert("タスクを入力してください！");
       return;
@@ -118,7 +114,6 @@ export default function App() {
   }
 
   function removeTask(i, e) {
-    setDeleteIndex(i);
     console.log("The remove button clicked!");
     e.stopPropagation();
     setTodos(todos.filter((_, index) => removeCurrentIndex(index)));
@@ -291,6 +286,7 @@ export default function App() {
           <button
             onClick={() => {
               handleAdd();
+              setAnimate(true);
             }}
             className={`add_button ${animate ? "add_buttonPushed" : ""} `}
             onTransitionEnd={() => setAnimate(false)}
@@ -324,7 +320,7 @@ export default function App() {
                 className={
                   !isDeleting ? "" : deleteIndex === i ? "smoothDelete" : ""
                 }
-                onAnimationEnd={() => setIsDeleting(false) ,setIsAdding(false)}
+                onAnimationEnd={() => setIsDeleting(false)}
               >
                 <input
                   type="checkbox"
