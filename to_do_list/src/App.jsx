@@ -75,6 +75,10 @@ export default function App() {
     console.log("isDeleting is " + isDeleting);
   }, [isDeleting]);
 
+  useEffect(() => {
+    console.log("deletingIndex is " + deletingIndex);
+  }, [deletingIndex]);
+
   //Regular Function↓↓
   function handleAdd() {
     setAnimate(true);
@@ -116,6 +120,8 @@ export default function App() {
     e.stopPropagation();
     setTodos(todos.filter((_, index) => removeCurrentIndex(index)));
     // .filterはcallbackにtrueを返すもののみを残す
+
+    setDeletingIndex(i);
 
     // the callback関数↓↓
     function removeCurrentIndex(index) {
@@ -313,9 +319,7 @@ export default function App() {
                 key={i}
                 style={{ ...striken, ...priority_style }}
                 id={todo.id}
-                className={
-                  !isDeleting ? "" : deleteIndex === i ? "smoothDelete" : ""
-                }
+                className={isDeleting ? "smoothDelete" : ""}
                 onAnimationEnd={() => setIsDeleting(false)}
               >
                 <input
