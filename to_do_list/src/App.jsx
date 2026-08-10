@@ -80,7 +80,6 @@ export default function App() {
 
   //Regular Function↓↓
   function handleAdd() {
-    setAnimate(true);
     if (!input) {
       alert("タスクを入力してください！");
       return;
@@ -317,9 +316,7 @@ export default function App() {
                 key={i}
                 style={{ ...striken, ...priority_style }}
                 id={todo.id}
-                className={
-                  !isDeleting ? "" : deleteIndex === i ? "smoothDelete" : ""
-                }
+                className={isDeleting ? "smoothDelete" : ""}
                 onAnimationEnd={() => setIsDeleting(false)}
               >
                 <input
