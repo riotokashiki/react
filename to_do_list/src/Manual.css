@@ -1,0 +1,11 @@
+.manual {
+  text-align: center;
+  border: gray 2px solid;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: white;
+}
+
+.manual a {
+  text-decoration: none;
+}

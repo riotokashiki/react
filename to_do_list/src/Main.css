@@ -1,0 +1,10 @@
+html,
+body {
+  display: flex;
+  position: relative;
+}
+
+manualButton {
+  position: absolute;
+  left: 0px;
+}
