@@ -30,6 +30,8 @@ export default function App() {
   const [animate, setAnimate] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
+  const [isAdding, setIsAdding] = useState(false);
+  const [addIndex, setAddIndex] = useState(null);
   //Appマウント時に1回のみ実行↓↓
   useEffect(() => {
     const restored_uncompleted_list = JSON.parse(
@@ -82,6 +84,7 @@ export default function App() {
   //Regular Function↓↓
   function handleAdd() {
     setAnimate(true);
+    setIsAdding(true);
     if (!input) {
       alert("タスクを入力してください！");
       return;
@@ -132,6 +135,7 @@ export default function App() {
   }
 
   function move_it_back(i, e, id) {
+    setIsDeleting(true);
     console.log("The completed item clicked!");
     setTodos(
       todos.map((todo) => {
@@ -146,6 +150,7 @@ export default function App() {
   }
 
   function removeTask_completed(i, e) {
+    setDeleteIndex(i);
     if (isMoveItBackDone) {
       console.log("The remove button clicked!");
     }
@@ -239,6 +244,7 @@ export default function App() {
               onChange={(e) => {
                 setInput(e.target.value);
               }} /*setting an eventListener*/
+              placeholder="やるべきことを入力:例）牛乳を買う"
             />
           </div>
           <div className="pritorityContainer">
@@ -318,10 +324,14 @@ export default function App() {
                 key={i}
                 style={{ ...striken, ...priority_style }}
                 id={todo.id}
-                className={
-                  !isDeleting ? "" : deleteIndex === i ? "smoothDelete" : ""
-                }
-                onAnimationEnd={() => setIsDeleting(false)}
+                className={`
+                 ${!isDeleting ? "" : deleteIndex === i ? "smoothDelete" : ""}
+                ${!isAdding ? "" : i === 0 ? "smoothAdd" : ""}
+                 `}
+                onAnimationEnd={() => {
+                  setIsDeleting(false);
+                  setIsAdding(false);
+                }}
               >
                 <input
                   type="checkbox"
@@ -376,12 +386,22 @@ export default function App() {
                   key={i}
                   onClick={(e) => move_it_back(i, e, todo.id)}
                   id={todo.id}
+                  className={`
+                 ${!isDeleting ? "" : deleteIndex === i ? "smoothDelete" : ""}
+                ${!isAdding ? "" : i === 0 ? "smoothAdd" : ""}
+                 `}
+                  onAnimationEnd={() => {
+                    setIsDeleting(false);
+                  }}
                 >
                   <input type="checkbox" checked={true} readOnly></input>
                   <span style={hide}>{doneTodos[i].text}</span>
                   <button
                     className=" li_button"
-                    onClick={(e) => removeTask_completed(i, e)}
+                    onClick={(e) => {
+                      removeTask_completed(i, e);
+                      setIsDeleting(true);
+                    }}
                   >
                     削除
                   </button>

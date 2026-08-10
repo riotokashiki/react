@@ -327,7 +327,7 @@ p.title {
   }
 }
 .smoothDelete {
-  animation: smoothDelete 0.15s ease;
+  animation: smoothDelete 0.25s ease;
 }
 
 @keyframes smoothDelete {
