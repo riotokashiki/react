@@ -341,7 +341,7 @@ p.title {
   }
 }
 
-.smoothGrowing {
+.smoothAdd {
   animation: growingDown 0.25s ease;
 }
 @keyframes growingDown {

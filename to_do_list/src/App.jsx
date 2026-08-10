@@ -30,6 +30,8 @@ export default function App() {
   const [animate, setAnimate] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
+  const [isAdding, setIsAdding] = useState(false);
+  const [addIndex, setAddIndex] = useState(null);
   //Appマウント時に1回のみ実行↓↓
   useEffect(() => {
     const restored_uncompleted_list = JSON.parse(
@@ -76,12 +78,13 @@ export default function App() {
   }, [isDeleting]);
 
   useEffect(() => {
-    console.log("deletingIndex is " + deletingIndex);
-  }, [deletingIndex]);
+    console.log("deleteIndex is " + deleteIndex);
+  }, [deleteIndex]);
 
   //Regular Function↓↓
   function handleAdd() {
     setAnimate(true);
+    setIsAdding(true);
     if (!input) {
       alert("タスクを入力してください！");
       return;
@@ -121,7 +124,7 @@ export default function App() {
     setTodos(todos.filter((_, index) => removeCurrentIndex(index)));
     // .filterはcallbackにtrueを返すもののみを残す
 
-    setDeletingIndex(i);
+    setDeleteIndex(i);
 
     // the callback関数↓↓
     function removeCurrentIndex(index) {
@@ -198,7 +201,6 @@ export default function App() {
   function editTask(i) {
     setEditingIndex(i); //編集インデックスをiへ更新
     setEditText(todos[i].text);
-    setIsEditActive(true);
   }
 
   function saveTask(i) {
@@ -319,8 +321,10 @@ export default function App() {
                 key={i}
                 style={{ ...striken, ...priority_style }}
                 id={todo.id}
-                className={isDeleting ? "smoothDelete" : ""}
-                onAnimationEnd={() => setIsDeleting(false)}
+                className={
+                  !isDeleting ? "" : deleteIndex === i ? "smoothDelete" : ""
+                }
+                onAnimationEnd={() => setIsDeleting(false) ,setIsAdding(false)}
               >
                 <input
                   type="checkbox"
