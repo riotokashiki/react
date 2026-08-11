@@ -233,7 +233,7 @@ export default function App() {
       <div className="upperHalfContainer">
         <div className="devidingContainer1"></div>
         <div className="devidingContainer2">
-          <p className="title">タスク管理アプリ（React Ver）</p>
+          <p className="title">タスク管理アプリ</p>
           <div className="input_and_button_container">
             <input
               value={input}

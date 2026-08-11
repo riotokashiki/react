@@ -6,18 +6,21 @@ body {
 
 .manual {
   position: absolute;
-  left: 0px;
+  left: 1rem;
+  max-width: 18%;
+      letter-spacing: 0.07vw;
 }
 
 @media (max-width: 768px) {
-  html,
-  body {
-    display: block;
+div#root {
+    display: flex;
+    justify-content: center;
     flex-direction: column;
-  }
-
+    align-items: center;
+}
   .manual {
     position: static;
+            max-width: 80%;
   }
 }
 

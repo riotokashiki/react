@@ -247,7 +247,7 @@ span {
 
 .uncompletedListContainer {
   width: 89%;
-  margin: 1rem 0rem;
+  margin: 3rem 0rem;
 }
 .completedListContainer {
   width: 89%;
@@ -266,6 +266,7 @@ span {
 .devidingContainer3 {
   width: 20%;
   height: 100%;
+      padding-top: 26px;
 }
 .devidingContainer3 {
   position: relative;
@@ -311,6 +312,11 @@ p.title {
   span {
     width: 32vw;
   }
+
+.devidingContainer3 {
+            padding-top: 15px;
+}
+
 }
 
 @media (max-width: 480px) {
@@ -343,6 +349,10 @@ p.title {
   #sort {
     font-size: 0.6rem;
   }
+.devidingContainer3 {
+            padding-top: 4px;
+}
+
 }
 .smoothDelete {
   animation: smoothDelete 0.25s ease;
