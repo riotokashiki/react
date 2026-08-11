@@ -19,12 +19,6 @@ html {
   background: #3f3f9f;
 }
 
-.add_button {
-  /* width: 10%; */
-  background-color: green;
-  overflow: hidden;
-}
-
 li {
   list-style-type: none;
   width: 51%;
@@ -126,7 +120,6 @@ ul {
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.03s ease;
-  margin-top: 6vh;
 
   left: 0%;
   max-height: 10vh;
@@ -266,10 +259,10 @@ span {
 .devidingContainer3 {
   width: 20%;
   height: 100%;
-      padding-top: 26px;
 }
 .devidingContainer3 {
   position: relative;
+  padding-top: 56px;
 }
 
 .devidingContainer2 {
@@ -313,10 +306,9 @@ p.title {
     width: 32vw;
   }
 
-.devidingContainer3 {
-            padding-top: 15px;
-}
-
+  .devidingContainer3 {
+    padding-top: 48px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -338,10 +330,6 @@ p.title {
     margin: 0.8rem;
   }
 
-  .addButton {
-    margin-top: 5vh;
-  }
-
   #inputField {
     font-size: 0.6rem;
   }
@@ -349,10 +337,9 @@ p.title {
   #sort {
     font-size: 0.6rem;
   }
-.devidingContainer3 {
-            padding-top: 4px;
-}
-
+  .devidingContainer3 {
+    padding-top: 40px;
+  }
 }
 .smoothDelete {
   animation: smoothDelete 0.25s ease;
